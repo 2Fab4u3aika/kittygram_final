@@ -15,7 +15,7 @@ services:
     build: ./backend/
     volumes:
       - static_kittygram:/backend_static
-      - media_kittygram:/media
+      - media_kittygram:/app/media
     depends_on:
       - db
     env_file: .env

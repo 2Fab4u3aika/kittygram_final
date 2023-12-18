@@ -6,30 +6,34 @@ volumes:
   media_kittygram:
 
 services:
+  
   db:
     image: postgres:13
+    env_file: .env
     volumes:
       - pg_data_kittygram:/var/lib/postgresql/data
-    env_file: .env
+  
   backend:
     image: 2fab4uz/kittygram_backend
+    env_file: .env
     volumes:
       - static_kittygram:/backend_static
-      - media_kittygram:/media
+      - media_kittygram:/app/media
     depends_on:
       - db
-    env_file: .env
+  
   frontend:
     env_file: .env
     image: 2fab4uz/kittygram_frontend
     command: cp -r /app/build/. /frontend_static/
     volumes:
       - static_kittygram:/frontend_static
+  
   gateway:
     image: 2fab4uz/kittygram_gateway
     env_file: .env
     ports:
       - 9000:80
     volumes:
-      - static_kittygram:/static
+      - static_kittygram:/static/
       - media_kittygram:/media
