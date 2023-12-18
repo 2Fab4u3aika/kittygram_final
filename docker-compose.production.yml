@@ -10,6 +10,7 @@ services:
     image: postgres:13
     volumes:
       - pg_data_kittygram:/var/lib/postgresql/data
+    env_file: .env
   backend:
     image: 2fab4uz/kittygram_backend
     volumes:
